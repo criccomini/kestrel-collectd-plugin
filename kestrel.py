@@ -156,4 +156,4 @@ def log_verbose(msg):
 
 # register callbacks
 collectd.register_config(configure_callback)
-collectd.register_read(read_callback)
+collectd.register_read(read_callback, name='kestrel')
