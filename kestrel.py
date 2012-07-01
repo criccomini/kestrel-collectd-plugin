@@ -101,7 +101,7 @@ def dispatch_value(info, key, type, type_instance=None):
   if not type_instance:
     type_instance = key
 
-  value = int(info[key])
+  value = float(info[key])
   log_verbose('Sending value: %s=%s' % (type_instance, value))
 
   val = collectd.Values(plugin='kestrel')
@@ -149,7 +149,7 @@ def read_callback():
       elif key.endswith('_total_items') or key.endswith('_logsize') or key.endswith('_expired_items') or key.endswith('_discarded') or key.endswith('_total_flushes'):
         tipe = 'counter'
       
-      dispatch_value(info, key, float(tipe))
+      dispatch_value(info, key, tipe)
 
 def log_verbose(msg):
   if not VERBOSE_LOGGING:
