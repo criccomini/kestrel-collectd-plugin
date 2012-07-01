@@ -149,7 +149,7 @@ def read_callback():
       elif key.endswith('_total_items') or key.endswith('_logsize') or key.endswith('_expired_items') or key.endswith('_discarded') or key.endswith('_total_flushes'):
         tipe = 'counter'
       
-      dispatch_value(info, key, tipe)
+      dispatch_value(info, key, float(tipe))
 
 def log_verbose(msg):
   if not VERBOSE_LOGGING:
