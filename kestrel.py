@@ -66,13 +66,15 @@ def fetch_info():
   s.close()
   return parse_info(info_data)
 
-
 def parse_info(info_lines):
   """Parse info response from Kestrel"""
   info = {}
   for line in info_lines:
-    stat, key, val = line.split(' ')
-    info[key] = val
+    if len(line.split(' ')):
+      stat, key, val = split_line
+      info[key] = val
+    else:
+      log_verbos('Skipping malformed line: ' % line)
   return info
 
 def configure_callback(conf):
