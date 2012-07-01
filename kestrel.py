@@ -71,7 +71,7 @@ def parse_info(info_lines):
   info = {}
   for line in info_lines:
     split_line = line.split(' ')
-    if len(split_line) >= 2:
+    if len(split_line) > 2:
       info[split_line[1]] = split_line[2]
     else:
       log_verbos('Skipping malformed line: ' % line)
