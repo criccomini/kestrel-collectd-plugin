@@ -70,8 +70,8 @@ def parse_info(info_lines):
   """Parse info response from Kestrel"""
   info = {}
   for line in info_lines:
-    split_line = len(line.split(' '))
-    if split_line:
+    split_line = line.split(' ')
+    if len(split_line) >= 2:
       stat, key, val = split_line
       info[key] = val
     else:
