@@ -74,7 +74,7 @@ def parse_info(info_lines):
     if len(split_line) > 2:
       info[split_line[1]] = split_line[2]
     else:
-      log_verbose('Skipping malformed line: ' % line)
+      log_verbose('Skipping malformed line: %s' % line)
   return info
 
 def configure_callback(conf):
