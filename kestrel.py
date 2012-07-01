@@ -144,9 +144,7 @@ def read_callback():
       if key.endswith('_children'):
         # count the number of children (fanouts) for this task
         info[key] = len(info[key].split(','))
-      elif key.endswith('_items'):
-        tipe = 'bytes'
-      elif key.endswith('_total_items') or key.endswith('_logsize') or key.endswith('_expired_items') or key.endswith('_discarded') or key.endswith('_total_flushes'):
+      elif key.endswith('_items') or key.endswith('_total_items') or key.endswith('_logsize') or key.endswith('_expired_items') or key.endswith('_discarded') or key.endswith('_total_flushes'):
         tipe = 'counter'
       
       dispatch_value(info, key, tipe)
