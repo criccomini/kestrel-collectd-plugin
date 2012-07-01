@@ -57,8 +57,8 @@ def fetch_info():
   info_data = []
   while True:
     data = fp.readline().strip()
-    log_verbose('Received data: %s' % data)
     if data == 'END':
+      log_verbose('Finished STATS call.')
       break
     elif data.startswith('STAT '):
       info_data.append(data)
