@@ -62,7 +62,8 @@ def fetch_info():
       break
     elif data.startswith('STAT '):
       info_data.append(data)
-
+      
+  fp.close()
   s.close()
   return parse_info(info_data)
 
@@ -131,8 +132,8 @@ def read_callback():
   dispatch_value(info, 'cmd_peek' , 'counter')
   dispatch_value(info, 'get_hits' , 'counter')
   dispatch_value(info, 'get_misses' , 'counter')
-  dispatch_value(info, 'bytes_read' , 'bytes')
-  dispatch_value(info, 'bytes_written' , 'bytes')
+  dispatch_value(info, 'bytes_read' , 'counter')
+  dispatch_value(info, 'bytes_written' , 'counter')
   dispatch_value(info, 'queue_creates' , 'counter')
   dispatch_value(info, 'queue_deletes' , 'counter')
   dispatch_value(info, 'queue_expires', 'counter')
