@@ -73,7 +73,7 @@ def parse_info(info_lines):
   for line in info_lines:
     split_line = line.split(' ')
     if len(split_line) > 2:
-      info[split_line[1]] = split_line[2]
+      info[split_line[1][:64]] = split_line[2]
     else:
       log_verbose('Skipping malformed line: %s' % line)
   return info
@@ -138,8 +138,6 @@ def read_callback():
   dispatch_value(info, 'queue_deletes' , 'counter')
   dispatch_value(info, 'queue_expires', 'counter')
 
-  sent = []
-  
   # queue stats
   for key in info:
     if key.startswith('queue_') and key not in ['queue_deletes', 'queue_creates', 'queue_expires'] and '+' not in key:
@@ -150,13 +148,7 @@ def read_callback():
       elif key.endswith('_items') or key.endswith('_total_items') or key.endswith('_logsize') or key.endswith('_expired_items') or key.endswith('_discarded') or key.endswith('_total_flushes'):
         tipe = 'counter'
       
-      key = key[:64]
-      
-      if key not in sent:
-        dispatch_value(info, key, tipe)
-        sent.append(key)
-      else:
-        log_verbose('Skipping non-unique metric key %s. Already sent a key with this name. Perhaps the key name is longer than 64 characters?' % key)
+      dispatch_value(info, key, tipe)
 
 def log_verbose(msg):
   if not VERBOSE_LOGGING:
