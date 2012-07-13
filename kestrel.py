@@ -138,6 +138,8 @@ def read_callback():
   dispatch_value(info, 'queue_deletes' , 'counter')
   dispatch_value(info, 'queue_expires', 'counter')
 
+  sent = []
+  
   # queue stats
   for key in info:
     if key.startswith('queue_') and key not in ['queue_deletes', 'queue_creates', 'queue_expires'] and '+' not in key:
@@ -148,7 +150,13 @@ def read_callback():
       elif key.endswith('_items') or key.endswith('_total_items') or key.endswith('_logsize') or key.endswith('_expired_items') or key.endswith('_discarded') or key.endswith('_total_flushes'):
         tipe = 'counter'
       
-      dispatch_value(info, key, tipe)
+      key = key[:64]
+      
+      if key not in sent:
+        dispatch_value(info, key, tipe)
+        sent.append(key)
+      else:
+        log_verbose('Skipping non-unique metric key %s. Already sent a key with this name. Perhaps the key name is longer than 64 characters?' % key)
 
 def log_verbose(msg):
   if not VERBOSE_LOGGING:
