@@ -100,7 +100,8 @@ def dispatch_value(info, key, type, type_instance=None):
     return
 
   if not type_instance:
-    type_instance = key[:64]
+    # Key max length is 63 chars. See http://collectd.org/wiki/index.php/Naming_schema
+    type_instance = key[:63]
 
   value = float(info[key])
   log_verbose('Sending value: %s=%s' % (type_instance, value))
@@ -149,7 +150,7 @@ def read_callback():
       elif key.endswith('_items') or key.endswith('_total_items') or key.endswith('_logsize') or key.endswith('_expired_items') or key.endswith('_discarded') or key.endswith('_total_flushes'):
         tipe = 'counter'
       
-      max_length_key = key[:64]
+      max_length_key = key[:63]
       
       if max_length_key not in sent:
         dispatch_value(info, key, tipe)
