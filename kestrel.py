@@ -111,7 +111,6 @@ def dispatch_value(info, key, type, type_instance=None):
   val.values = [value]
   val.dispatch()
 
-
 def read_callback():
   log_verbose('Read callback called')
   info = fetch_info()
